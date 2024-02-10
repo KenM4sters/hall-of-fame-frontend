@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { getAllCharacters, saveCharacter, updateCharacterImage } from "./api/GameService";
+import { getAllCharacters, saveCharacter, updateCharacterImage } from "./api/CharacterService";
 import Header from "./components/Header";
 import { ToastContainer } from "react-toastify";
 import { Navigate, Route, Routes } from "react-router-dom";
@@ -28,7 +28,7 @@ const App = () => {
   const handleNewCharacter = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await saveCharacter();
+      const { data } = await saveCharacter(values);
       const formData = new FormData();
       formData.append("file", file);
       formData.append("id", data.id);
@@ -39,6 +39,7 @@ const App = () => {
         game: "",
       });
       fileRef.current.value = null;
+      getAllChars();
     } catch (e) {
       console.log(e);
     }
@@ -62,9 +63,9 @@ const App = () => {
       <main className="main">
         <div className="container">
           <Routes>
-            <Route path="/" element={<Navigate to={"/games"} />} />
+            <Route path="/" element={<Navigate to={"/characters"} />} />
             <Route
-              path="/games"
+              path="/characters"
               element={
                 data.content ? (
                   <div>Hello World</div>
@@ -74,7 +75,7 @@ const App = () => {
               }
             />
             <Route
-              path="/games/:id"
+              path="/characters/:id"
               element={<div>Id page</div>}
             />
           </Routes>
