@@ -7,5 +7,125 @@ body,
     left: 0;
     width: 100%;
     height: 100%;
-    background: ivory;
+    background: rgb(255, 255, 255);
+}
+
+.htmlWrapper {
+    position: fixed;
+    z-index: 10;
+    color: black;
+    font-size: 3rem;
+}
+
+/*
+    Header
+*/
+
+.header {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    place-items: center;
+    gap: 60vw;
+    width: 100vw;
+    padding-top: 4vh;
+    padding-bottom: 4vh;
+    background-color: rgb(0, 200, 255);
+}
+
+.header-btn-wrapper {
+    margin-right: 10vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    place-items: center;
+    column-gap: 2vw;
+}
+
+.header-title{
+
+}
+
+/*
+    Modal
+*/
+
+
+.modal {
+    background-color: rgb(255, 255, 255);
+    top: 25%;
+    left: 37%;
+    width: 20vw;
+    height: 40vh;
+    padding: 5vh;
+    border-radius: 15px;
+    border: none;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.modal_wrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2vh;
+}
+
+.modal_header {
+    display: flex;
+    flex-direction: row;
+    column-gap: 10vw;
+}
+
+.modal_form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1vh;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+    row-gap: 3vh;
+}
+
+.input-box {
+    display: flex;
+    flex-direction: row;
+    column-gap: 2vw;
+    width: 10vw;
+    font-size: calc(0.25rem + 0.7vh);;
+    font-weight: 500;
+}
+
+.input-box-text {
+    position: absolute;
+    margin-left: 9vw;
+}
+
+.form_footer {
+    margin-top: 5vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    column-gap: 2vw;
+}
+
+.file-input {
+    margin-top: 2vh;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.5vh;
+    font-weight: 500;
+}
+
+.close-tag {
+    cursor: pointer;
+    font-weight: 400;
+    transition: all;
+    transition-duration: 0.7s;
+}
+
+.close-tag:hover {
+    scale: 0.9;
+    opacity: 0.7;
 }

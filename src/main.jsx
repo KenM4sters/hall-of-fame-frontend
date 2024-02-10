@@ -1,16 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
+import R3f from './r3f.jsx'
 import './index.css'
 import { Canvas } from '@react-three/fiber'
+import { OrbitControls } from '@react-three/drei'
+import App from './App.jsx'
+import { BrowserRouter } from 'react-router-dom'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <Canvas
-      camera={{fov: 45, near: 0.1, far: 2000, position: [ - 4, 3, 6 ]}}
-    >
-
-      <App />
-    </Canvas>
-  </React.StrictMode>,
+  <BrowserRouter>
+    <App />
+    <R3f />
+  </BrowserRouter>
 )

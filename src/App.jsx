@@ -1,54 +1,154 @@
-import React from 'react'
-import { useFrame } from '@react-three/fiber'
-import { meshBounds, useGLTF, OrbitControls } from '@react-three/drei'
-import { useRef } from 'react'
+import React, { useEffect, useRef, useState } from "react";
+import { getAllCharacters, saveCharacter, updateCharacterImage } from "./api/GameService";
+import Header from "./components/Header";
+import { ToastContainer } from "react-toastify";
+import { Navigate, Route, Routes } from "react-router-dom";
+
 
 const App = () => {
-  const cube = useRef()
+  const modalRef = useRef();
+  const fileRef = useRef();
+  const[data, setData] = useState({});
+  const [file, setFile] = useState(undefined);
+  const [values, setValues] = useState({
+    name: "",
+    game: "",
+  });
 
-  useFrame((state, delta) =>
-  {
-      cube.current.rotation.y += delta * 0.2
-  })
+  const getAllChars = async (page = 0, size = 4) => {
+    try {
+      const {data} = await getAllCharacters(page, size);
+      setData(data);
+      console.log(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
-  const eventHandler = (event) => {
-      cube.current.material.color.set(`hsl(${Math.random() * 360}, 100%, 75%)`)
-  }
+  const handleNewCharacter = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await saveCharacter();
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("id", data.id);
+      const { data: imageUrl } = await updateCharacterImage(formData);
+      setFile(undefined);
+      setValues({
+        name: "",
+        game: "",
+      });
+      fileRef.current.value = null;
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const onChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
+
+  useEffect(() => {
+    getAllChars();
+  }, []);
+
+
+  const toggleModal = (show) =>
+    show ? modalRef.current.showModal() : modalRef.current.close();
+
   return (
     <>
-        <OrbitControls makeDefault />
-
-        <directionalLight position={ [ 1, 2, 3 ] } intensity={ 1.5 } />
-        <ambientLight intensity={ 0.5 } />
-
-        <mesh 
-        position-x={ - 2 } 
-        onClick={(event) => {event.stopPropagation()}}
-        >
-
-            <sphereGeometry />
-            <meshStandardMaterial color="orange" />
-        </mesh>
-
-        <mesh 
-        ref={ cube } 
-        raycast={ meshBounds}
-        position-x={ 2 } 
-        scale={ 1.5 } 
-        onClick={eventHandler}
-        onPointerEnter={() => {document.body.style.cursor = 'pointer'}}
-        onPointerLeave={() => {document.body.style.cursor = 'default'}}
-        >
-            <boxGeometry />
-            <meshStandardMaterial color="mediumpurple" />
-        </mesh>
-
-        <mesh position-y={ - 1 } rotation-x={ - Math.PI * 0.5 } scale={ 10 }>
-            <planeGeometry />
-            <meshStandardMaterial color="greenyellow" />
-        </mesh>
+      <Header toggleModal={toggleModal} numOfGames={data.totalElements} />
+      <main className="main">
+        <div className="container">
+          <Routes>
+            <Route path="/" element={<Navigate to={"/games"} />} />
+            <Route
+              path="/games"
+              element={
+                data.content ? (
+                  <div>Hello World</div>
+                ) : (
+                  <p>waiting for data...</p>
+                )
+              }
+            />
+            <Route
+              path="/games/:id"
+              element={<div>Id page</div>}
+            />
+          </Routes>
+        </div>
+      </main>
+      {/* Modal (Add Game) */}
+      <dialog ref={modalRef} className="modal" id="modal">
+        <section className="modal_wrapper">
+          <div className="modal_header">
+            <h3>New Game</h3>
+            <p onClick={() => toggleModal(false)} className="close-tag">
+              close
+            </p>
+          </div>
+          <div className="divider"></div>
+          <div className="modal_body">
+            <form onSubmit={handleNewCharacter} className="modal_form">
+              <div className="user-details">
+                <div className="input-box">
+                  <span className="details">Character Name</span>
+                  <div className="input-box-text">
+                    <input
+                      type="text"
+                      value={values.name}
+                      onChange={onChange}
+                      name="name"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="input-box">
+                  <span className="details">Game Title</span>
+                  <div className="input-box-text">
+                    <input
+                      type="text"
+                      value={values.game}
+                      onChange={onChange}
+                      name="game"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="file-input">
+                  <span className="details">Profile Photo</span>
+                  <div className="">
+                    <input
+                      type="file"
+                      onChange={(e) => setFile(e.target.files[0])}
+                      ref={fileRef}
+                      name="photo"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="form_footer">
+                <button
+                  onClick={() => toggleModal(false)}
+                  type="button"
+                  className="btn btn-danger"
+                >
+                  Cancel
+                </button>
+                <button type="submit" className="btn">
+                  Save
+                </button>
+              </div>
+            </form>
+          </div>
+        </section>
+      </dialog>
+      <ToastContainer />
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
