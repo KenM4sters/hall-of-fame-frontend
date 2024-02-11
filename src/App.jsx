@@ -19,7 +19,6 @@ const App = () => {
     try {
       const {data} = await getAllCharacters(page, size);
       setData(data);
-      console.log(data);
     } catch (e) {
       console.log(e);
     }
@@ -59,7 +58,7 @@ const App = () => {
 
   return (
     <>
-      <Header toggleModal={toggleModal} numofChars={data.totalElements} />
+      <Header toggleModal={toggleModal} numofChars={data.totalElements} data={data} />
       <main className="main">
         <div className="container">
           <Routes>

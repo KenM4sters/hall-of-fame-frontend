@@ -1,22 +1,15 @@
 import React, { useRef } from "react";
 import ReactDOM from "react-dom";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { OrbitControls, Stats } from "@react-three/drei";
+import * as THREE from 'three'
 
-const R3f = ({ instanceCount }) => {
-  console.log(instanceCount);
+const R3f = ({ instanceCount, data }) => {
 
   const meshPositions = Array.from({ length: instanceCount }, (_, index) => Array.from({length: 3}, (_, i) => Math.random() * 10));
+  console.log(data.content != undefined ? data.content[0].imageUrl : "not defined");
 
-  console.log(meshPositions);
-
-  // // Array of positions for each mesh
-  // const meshPositions = [
-  //   [0, 0, 0], // position for mesh 1
-  //   [1, 0, 0], // position for mesh 2
-  //   [0, 1, 0], // position for mesh 3
-  //   // Add more positions as needed
-  // ];
+  const texture = new useLoader(THREE.TextureLoader, data.content != undefined ? data.content[0].imageUrl : "src/assets/unnamed.jpg")
 
   return (
     <Canvas
@@ -29,11 +22,10 @@ const R3f = ({ instanceCount }) => {
       }}
     >
       <OrbitControls />
-
       {meshPositions.map((position, index) => (
         <mesh key={index} position={position}>
           <boxGeometry attach="geometry" args={[1, 1, 0.2]} />
-          <meshStandardMaterial attach="material" color="orange" />
+          <meshBasicMaterial attach="material" map={texture}/>
         </mesh>
       ))}
     </Canvas>
