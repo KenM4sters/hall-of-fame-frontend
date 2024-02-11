@@ -8,7 +8,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 const App = () => {
   const modalRef = useRef();
   const fileRef = useRef();
-  const[data, setData] = useState({});
+  const [data, setData] = useState({});
   const [file, setFile] = useState(undefined);
   const [values, setValues] = useState({
     name: "",
@@ -59,7 +59,7 @@ const App = () => {
 
   return (
     <>
-      <Header toggleModal={toggleModal} numOfGames={data.totalElements} />
+      <Header toggleModal={toggleModal} numofChars={data.totalElements} />
       <main className="main">
         <div className="container">
           <Routes>

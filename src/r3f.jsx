@@ -1,9 +1,10 @@
 import React from 'react'
 
-const r3f = () => {
+const R3f = ({instanceCount}) => {
+  console.log(instanceCount);
   return (
-    <div>r3f</div>
+    <div>{instanceCount}</div>
   )
 }
 
-export default r3f
+export default R3f
