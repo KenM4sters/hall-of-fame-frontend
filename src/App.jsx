@@ -3,6 +3,7 @@ import { getAllCharacters, saveCharacter, updateCharacterImage } from "./api/Cha
 import Header from "./components/Header";
 import { ToastContainer } from "react-toastify";
 import { Navigate, Route, Routes } from "react-router-dom";
+import Pagination from "./components/Pagination";
 
 
 const App = () => {
@@ -10,6 +11,7 @@ const App = () => {
   const fileRef = useRef();
   const [data, setData] = useState({});
   const [file, setFile] = useState(undefined);
+  const [currentPage, setCurrentPage] = useState(0);
   const [values, setValues] = useState({
     name: "",
     game: "",
@@ -17,6 +19,7 @@ const App = () => {
 
   const getAllChars = async (page = 0, size = 4) => {
     try {
+      setCurrentPage(page);
       const {data} = await getAllCharacters(page, size);
       setData(data);
     } catch (e) {
@@ -56,9 +59,12 @@ const App = () => {
   const toggleModal = (show) =>
     show ? modalRef.current.showModal() : modalRef.current.close();
 
+  
+
   return (
     <>
       <Header toggleModal={toggleModal} numofChars={data.totalElements} data={data} />
+      <Pagination data={data} currentPage={currentPage} getAllChars={getAllChars} />
       <main className="main">
         <div className="container">
           <Routes>
@@ -67,7 +73,7 @@ const App = () => {
               path="/characters"
               element={
                 data.content ? (
-                  <div>Hello World</div>
+                  <div style={{color: 'white'}}>Hello World</div>
                 ) : (
                   <p>waiting for data...</p>
                 )

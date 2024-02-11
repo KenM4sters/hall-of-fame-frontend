@@ -7,11 +7,12 @@ const Header = ({ toggleModal, numofChars, data }) => {
 
   useEffect(() => { setInstanceCount(numofChars)}, [numofChars])
 
+
   return (
     <>
       <header className='header'>
           <div className='header-title'>
-              <h3> Character List ({numofChars}) </h3>
+              <h3> Hall of Fame ({numofChars}) </h3>
           </div>
           <div className='header-btn-wrapper'>
             <button onClick={() => toggleModal(true)} className='btn'> Add New Character </button>
