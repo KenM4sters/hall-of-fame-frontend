@@ -15,7 +15,7 @@ const Header = ({ toggleModal, numofChars, data }) => {
               <h3> Hall of Fame ({numofChars}) </h3>
           </div>
           <div className='header-btn-wrapper'>
-            <button onClick={() => toggleModal(true)} className='btn'> Add New Character </button>
+            <button onClick={() => toggleModal(true)} className='btn'> Add New </button>
           </div>
       </header>
 

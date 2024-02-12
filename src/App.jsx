@@ -17,7 +17,7 @@ const App = () => {
     game: "",
   });
 
-  const getAllChars = async (page = 0, size = 4) => {
+  const getAllChars = async (page = 0, size = 9) => {
     try {
       setCurrentPage(page);
       const {data} = await getAllCharacters(page, size);
@@ -124,7 +124,7 @@ const App = () => {
                   </div>
                 </div>
                 <div className="file-input">
-                  <span className="details">Profile Photo</span>
+                  <span className="details">Character Photo</span>
                   <div className="">
                     <input
                       type="file"
@@ -140,7 +140,7 @@ const App = () => {
                 <button
                   onClick={() => toggleModal(false)}
                   type="button"
-                  className="btn btn-danger"
+                  className="btn-danger"
                 >
                   Cancel
                 </button>
