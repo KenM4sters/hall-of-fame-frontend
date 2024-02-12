@@ -15,6 +15,10 @@ body,
     overflow: hidden;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 .htmlWrapper {
     position: fixed;
     z-index: 10;
@@ -215,18 +219,33 @@ button {
     Pagination
 */
 
-.pagination {
-    background-color: rgba(255, 255, 255, 0.849);
+.pagination-wrapper {
     position: fixed;
-    top: 80%;
-    left: 46%;
+    bottom: 0%;
+    left: 0%;
+    width: 100vw;
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    place-items: center;
+}
+
+.pagination {
+    text-decoration: none;
+    background-color: rgb(255, 255, 255);
     display: flex;
     justify-content: center;
     place-items: center;
     flex-direction: row;
     column-gap: 1vw;
-    border-radius: 15px;
+    border-radius: 25px;
+    padding-left: 1.5vw;
+    padding-right: 1.5vw;
+    padding-bottom: 0.3vw;
+    padding-top: 0.3vw;
     font-size: calc(0.5rem + 1.0vh);
+    color: black;
 }
 
 .pagination a {
@@ -237,9 +256,13 @@ button {
     visibility: hidden;
 }
 
-.active {
-    color: orangered;
-    background-color: beige;
-    padding: calc(0.5vh + 0.5vw);
+.active { 
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    background-color: rgba(0, 0, 0, 0.574);
+    padding-left: 1.0vw;
+    padding-right: 1.0vw;
+    padding-bottom: 0.3vw;
+    padding-top: 0.3vw;
     border-radius: 15px;
 }

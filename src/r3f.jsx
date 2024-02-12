@@ -53,7 +53,13 @@ const R3f = ({ instanceCount, data, deleteChar }) => {
         ))}
 
         {deleteIconPositions.map((position, index) => (
-            <mesh key={index} position={position} rotation={[0, 90 * 180/Math.PI , 0]} onClick={() => {handleCharacterdelete(data?.content[index])}}  >
+            <mesh key={index} 
+              position={position} 
+              rotation={[0, 90 * 180/Math.PI , 0]} 
+              onClick={() => {handleCharacterdelete(data?.content[index])}}  
+              onPointerEnter={() => {document.querySelector('#root').classList.add('pointer')}}
+              onPointerLeave={() => {document.querySelector('#root').classList.remove('pointer')}}
+              >
               <sphereGeometry args={[0.15, 32, 32]} />
               <meshBasicMaterial attach="material" map={new useLoader(THREE.TextureLoader, "src/assets/cross.jpeg")} />
             </mesh>
@@ -74,21 +80,10 @@ const R3f = ({ instanceCount, data, deleteChar }) => {
           position: [0, 0, 8],
         }}
       >
-        <OrbitControls  enableDamping={true}/>
+        {/* <OrbitControls  enableDamping={true}/> */}
         <Sparkles size={10} count={1000} color={'#59f0ff'} scale={[50]} speed={[0.2]} />
         <RenderChars />
       </Canvas>
-
-
-      {/* <div className="character-btn-wrapper">
-        {meshPositions?.map((position, index) => {
-          return (
-            <>
-              <button className="character-btn" key={index}> Delete Character </button>
-            </>
-          )
-        })}
-      </div> */}
     </>
   );
 };

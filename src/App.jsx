@@ -17,7 +17,7 @@ const App = () => {
     game: "",
   });
 
-  const getAllChars = async (page = 0, size = 9) => {
+  const getAllChars = async (page = 0, size = 4) => {
     try {
       setCurrentPage(page);
       const {data} = await getAllCharacters(page, size);
