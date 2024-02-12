@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { getAllCharacters, saveCharacter, updateCharacterImage } from "./api/CharacterService";
+import { deleteCharacter, getAllCharacters, saveCharacter, updateCharacterImage } from "./api/CharacterService";
 import Header from "./components/Header";
 import { ToastContainer } from "react-toastify";
 import { Navigate, Route, Routes } from "react-router-dom";
@@ -47,6 +47,15 @@ const App = () => {
     }
   };
 
+  const deleteChar = async (id) => {
+    try {
+      const {data} = await deleteCharacter(id)
+      getAllChars();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
@@ -63,7 +72,7 @@ const App = () => {
 
   return (
     <>
-      <Header toggleModal={toggleModal} numofChars={data.totalElements} data={data} />
+      <Header toggleModal={toggleModal} numofChars={data.totalElements} data={data} deleteChar={deleteChar} />
       <Pagination data={data} currentPage={currentPage} getAllChars={getAllChars} />
       <main className="main">
         <div className="container">

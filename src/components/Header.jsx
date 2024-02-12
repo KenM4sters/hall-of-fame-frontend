@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import R3f from '../R3f'
 
-const Header = ({ toggleModal, numofChars, data }) => {
+const Header = ({ toggleModal, numofChars, data, deleteChar}) => {
 
   const [instanceCount, setInstanceCount] = useState(numofChars); 
 
@@ -20,7 +20,7 @@ const Header = ({ toggleModal, numofChars, data }) => {
       </header>
 
       {/* R3F Experience */}
-      <R3f instanceCount={instanceCount} data={data}/>
+      <R3f instanceCount={instanceCount} data={data} deleteChar={deleteChar}/>
     </>
 
   )

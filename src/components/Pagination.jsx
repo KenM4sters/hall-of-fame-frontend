@@ -4,7 +4,8 @@ const Pagination = ({data, currentPage, getAllChars}) => {
   return (
     <>
       {/* Pagination */}
-      {data?.content?.length > 0 && data?.totalPages > 1 && 
+      {data?.content?.length > 0 && data?.totalPages > 1 &&
+      <div className='pagination-wrapper'>
         <div className="pagination">
             <a onClick={() => getAllChars(currentPage - 1)} className={0 == currentPage ? 'disabled' : ''}>
                 &laquo;
@@ -18,6 +19,7 @@ const Pagination = ({data, currentPage, getAllChars}) => {
                 &raquo;
             </a>
         </div>
+      </div> 
       }
     </>
   )
